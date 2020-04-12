@@ -21,7 +21,7 @@
 // console.log(arrNums3X)
 
 // - создать массив со словами на 15-20 элементов.
-let arrWords = ['LOREM', 'ipsum', 'dolor', 'sit', 'amet', 'consectetur', 'adipisicing', 'elit', 'Delectus', 'impedit', 'mag', 'nam', 'minus', 'nisi', 'perspiciatis', 'quae', 'quis', 'rem', 'sit', 'unde', 'veritatis']
+let arrWords = ['LOREM', 'ipsum', 'dolor', 'sit', 'amet', 'consectetur', 'adipisicing', 'elit', 'Delectus', 'impedit', 'mag', 'nam', 'minus', 'nisi', 'perspiciatis', 'quae', 'quis', 'rem', 'sit', 'unde', 'veritatis'];
 //     // -- поднять регистр.
 // let arrWords2 = arrWords.map(string => string.toUpperCase());
 // console.log(arrWords2);
@@ -77,6 +77,7 @@ let users = [{name: 'vasya', age: 31, status: false},
 // // - пройтись по ньому та додати кожному юзеру поле id - яке характеризує унікальний індентифікатор
 // // (По якому принципу його створювати - ваше рішення), та зберегти це в новий масив (первинний масив залишиться без змін)
 
+//     //  1-й варіант
 // let usersWithId = []
 // let x = 0
 // for (const user of users) {
@@ -84,9 +85,11 @@ let users = [{name: 'vasya', age: 31, status: false},
 //     for (const key in user) {
 //         usersWithId[x][key]= user[key];
 //     }
-//     usersWithId[x].id = Math.floor(Math.random()*100)
+//     usersWithId[x].id = Math.floor(Math.random()*100);
 //     x++
 // }
+
+//     //  2-й варіант
 // let usersWithId = [];
 // users.forEach((user, i) => {
 //         usersWithId[i] = Object.create(user);

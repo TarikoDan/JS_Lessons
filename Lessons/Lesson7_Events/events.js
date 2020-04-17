@@ -307,8 +307,6 @@
 
 
 
-//
-//
 //     // - Сворити масив нецензцрних слів.
 //     //     Сворити інпут текстового типу.
 //     //     Якщо людина вводить текст і він містить слово з масиву нецензурних слів
@@ -340,83 +338,73 @@
 // }
 
 
-// -- создать скрипт, который берет считывает на странице (rules.html) текст и делает сбоку меню-оглавление по всем заголовкам которые есть в тексте.
-//     При клике на пункт оглавления вы должны отправляться к этому пункту в тексте
-
-
-// - Напишите «Карусель» – ленту изображений, которую можно листать влево-вправо нажатием на стрелочки.
-
-
-// -- взять массив пользователей
-let usersWithAddress = [
-    {id:1,name: 'vasya', age: 33, status: false, address: {city: 'Lviv', street: 'Shevchenko', number: 16}},
-    {id:2,name: 'petya', age: 30, status: true, address: {city: 'Kyiv', street: 'Shevchenko', number: 1}},
-    {id:3,name: 'kolya', age: 29, status: true, address: {city: 'Lviv', street: 'Shevchenko', number: 121}},
-    {id:4,name: 'olya', age: 28, status: false, address: {city: 'Ternopil', street: 'Shevchenko', number: 90}},
-    {id:5,name: 'max', age: 30, status: true, address: {city: 'Lviv', street: 'Shevchenko', number: 115}},
-    {id:6,name: 'anya', age: 31, status: false, address: {city: 'Kyiv', street: 'Shevchenko', number: 2}},
-    {id:7,name: 'oleg', age: 28, status: false, address: {city: 'Kyiv', street: 'Shevchenko', number: 22}},
-    {id:8,name: 'andrey', age: 29, status: true, address: {city: 'Lviv', street: 'Shevchenko', number: 43}},
-    {id:9,name: 'masha', age: 30, status: true, address: {city: 'Kyiv', street: 'Shevchenko', number: 12}},
-    {id:10,name: 'olya', age: 25, status: false, address: {city: 'Lviv', street: 'Shevchenko', number: 16}},
-    {id:11,name: 'max', age: 31, status: true, address: {city: 'Ternopil', street: 'Shevchenko', number: 121}}
-];
-// Создать три чекбокса. Каждый из них активирует фильтр для вышеуказаного массива. Фильтры могут работать как вместе так и по отдельности.
-// 1й - отфильтровывает пользователей со статусом false (осталяет со статусом false)
-// 2й - оставляет старше 29 лет включительно
-// 3й - оставляет тех у кого город киев
-// Данные выводить в документ
-
-function openObject (object,container) {
-    if (typeof object === 'object') {
-        for (let key in object) {
-            typeof object[key] !== 'object'
-                ? container.innerText += `${key}: ${object[key]}; `
-                : openObject(object[key],container)
-        }
-    }
-}
-function objectsToDivsInContainer (array,container) {
-    for (const object of array) {
-        let div = document.createElement('div');
-        openObject(object, div);
-        container.append(div)
-    }
-}
-
-let container = document.createElement('div');
-container.style.border = '1px solid red';
-container.style.height = '210px';
-objectsToDivsInContainer(usersWithAddress,container);
-document.body.append(container);
-let pStatus = document.createElement('p');
-pStatus.style.color = 'blue';
-pStatus.innerText = 'select users with status "false"';
-let checkStatus = document.createElement('input');
-checkStatus.type = 'checkbox';
-checkStatus.name = 'checkStatus';
-pStatus.append(checkStatus);
-let pAge = document.createElement('p');
-pAge.style.color = 'blue';
-pAge.innerText = 'select users with Age over 28';
-let checkAge = document.createElement('input');
-checkAge.type = 'checkbox';
-checkAge.name = 'checkAge';
-pAge.append(checkAge);
-let pCity = document.createElement('p');
-pCity.style.color = 'blue';
-pCity.innerText = 'select users with City "Kyiv"';
-let checkCity = document.createElement('input');
-checkCity.type = 'checkbox';
-checkCity.name = 'checkCity';
-pCity.append(checkCity);
-let box = document.createElement('div');
-box.append(pStatus,pAge,pCity);
-document.body.append(box);
-
-
-
-
+//     // -- взять массив пользователей
+//     let usersWithAddress = [
+//         {id:1,name: 'vasya', age: 33, status: false, address: {city: 'Lviv', street: 'Shevchenko', number: 16}},
+//         {id:2,name: 'petya', age: 30, status: true, address: {city: 'Kyiv', street: 'Shevchenko', number: 1}},
+//         {id:3,name: 'kolya', age: 29, status: true, address: {city: 'Lviv', street: 'Shevchenko', number: 121}},
+//         {id:4,name: 'olya', age: 28, status: false, address: {city: 'Ternopil', street: 'Shevchenko', number: 90}},
+//         {id:5,name: 'max', age: 30, status: true, address: {city: 'Lviv', street: 'Shevchenko', number: 115}},
+//         {id:6,name: 'anya', age: 31, status: false, address: {city: 'Kyiv', street: 'Shevchenko', number: 2}},
+//         {id:7,name: 'oleg', age: 28, status: false, address: {city: 'Kyiv', street: 'Shevchenko', number: 22}},
+//         {id:8,name: 'andrey', age: 29, status: true, address: {city: 'Lviv', street: 'Shevchenko', number: 43}},
+//         {id:9,name: 'masha', age: 30, status: true, address: {city: 'Kyiv', street: 'Shevchenko', number: 12}},
+//         {id:10,name: 'olya', age: 25, status: false, address: {city: 'Lviv', street: 'Shevchenko', number: 16}},
+//         {id:11,name: 'max', age: 31, status: true, address: {city: 'Ternopil', street: 'Shevchenko', number: 121}}
+//     ];
+//     // Создать три чекбокса. Каждый из них активирует фильтр для вышеуказаного массива. Фильтры могут работать как вместе так и по отдельности.
+//     // 1й - отфильтровывает пользователей со статусом false (осталяет со статусом false)
+//     // 2й - оставляет старше 29 лет включительно
+//     // 3й - оставляет тех у кого город киев
+//     // Данные выводить в документ
+//
+// function openObject (object,container) {
+//     if (typeof object === 'object') {
+//         for (let key in object) {
+//             typeof object[key] !== 'object'
+//                 ? container.innerText += `${key}: ${object[key]}; `
+//                 : openObject(object[key],container)
+//         }
+//     }
+// }
+// function objectsToDivsInContainer (array,container) {
+//     for (const object of array) {
+//         let div = document.createElement('div');
+//         openObject(object, div);
+//         container.append(div)
+//     }
+// }
+//
+// let container = document.createElement('div');
+// container.style.border = '1px solid red';
+// container.style.height = '210px';
+// objectsToDivsInContainer(usersWithAddress,container);
+// document.body.append(container);
+// let pStatus = document.createElement('p');
+// pStatus.style.color = 'blue';
+// pStatus.innerText = 'select users with status "false"';
+// let checkStatus = document.createElement('input');
+// checkStatus.type = 'checkbox';
+// checkStatus.name = 'checkStatus';
+// pStatus.append(checkStatus);
+// let pAge = document.createElement('p');
+// pAge.style.color = 'blue';
+// pAge.innerText = 'select users with Age over 28';
+// let checkAge = document.createElement('input');
+// checkAge.type = 'checkbox';
+// checkAge.name = 'checkAge';
+// pAge.append(checkAge);
+// let pCity = document.createElement('p');
+// pCity.style.color = 'blue';
+// pCity.innerText = 'select users with City "Kyiv"';
+// let checkCity = document.createElement('input');
+// checkCity.type = 'checkbox';
+// checkCity.name = 'checkCity';
+// pCity.append(checkCity);
+// let box = document.createElement('div');
+// box.append(pStatus,pAge,pCity);
+// document.body.append(box);
+//
 // checkStatus.addEventListener('click',  function () {
 //     container.innerText = '';
 //     let users = usersWithAddress.filter((object) => object.status === false);
@@ -461,6 +449,23 @@ document.body.append(box);
 //     }
 // }
 
+// -- создать скрипт, который берет считывает на странице (rules.html) текст и делает сбоку меню-оглавление по всем заголовкам которые есть в тексте.
+//     При клике на пункт оглавления вы должны отправляться к этому пункту в тексте
+
+
+// - Напишите «Карусель» – ленту изображений, которую можно листать влево-вправо нажатием на стрелочки.
+btnR = document.getElementById('right');
+btnl = document.getElementById('left');
+frame = document.getElementById('frame');
+margin = 0;
+btnR.onclick = function () {
+    margin === -500 ? margin = 0 : margin -= 100;
+    frame.style.marginLeft = `${margin}%`
+};
+btnl.onclick = function () {
+    margin === 0 ? margin = -500 : margin += 100;
+    frame.style.marginLeft = `${margin}%`
+};
 
 
 // *****(Прям овердоз с рекурсией) Создать функцию которая принимает какой-либо элемент DOM-структуры .

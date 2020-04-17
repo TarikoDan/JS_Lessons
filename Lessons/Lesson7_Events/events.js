@@ -349,16 +349,16 @@
 
 // -- взять массив пользователей
 let usersWithAddress = [
-    {id:1,name: 'vasya', age: 31, status: false, address: {city: 'Lviv', street: 'Shevchenko', number: 16}},
+    {id:1,name: 'vasya', age: 33, status: false, address: {city: 'Lviv', street: 'Shevchenko', number: 16}},
     {id:2,name: 'petya', age: 30, status: true, address: {city: 'Kyiv', street: 'Shevchenko', number: 1}},
     {id:3,name: 'kolya', age: 29, status: true, address: {city: 'Lviv', street: 'Shevchenko', number: 121}},
     {id:4,name: 'olya', age: 28, status: false, address: {city: 'Ternopil', street: 'Shevchenko', number: 90}},
     {id:5,name: 'max', age: 30, status: true, address: {city: 'Lviv', street: 'Shevchenko', number: 115}},
     {id:6,name: 'anya', age: 31, status: false, address: {city: 'Kyiv', street: 'Shevchenko', number: 2}},
-    {id:7,name: 'oleg', age: 28, status: false, address: {city: 'Ternopil', street: 'Shevchenko', number: 22}},
+    {id:7,name: 'oleg', age: 28, status: false, address: {city: 'Kyiv', street: 'Shevchenko', number: 22}},
     {id:8,name: 'andrey', age: 29, status: true, address: {city: 'Lviv', street: 'Shevchenko', number: 43}},
     {id:9,name: 'masha', age: 30, status: true, address: {city: 'Kyiv', street: 'Shevchenko', number: 12}},
-    {id:10,name: 'olya', age: 31, status: false, address: {city: 'Lviv', street: 'Shevchenko', number: 16}},
+    {id:10,name: 'olya', age: 25, status: false, address: {city: 'Lviv', street: 'Shevchenko', number: 16}},
     {id:11,name: 'max', age: 31, status: true, address: {city: 'Ternopil', street: 'Shevchenko', number: 121}}
 ];
 // Создать три чекбокса. Каждый из них активирует фильтр для вышеуказаного массива. Фильтры могут работать как вместе так и по отдельности.
@@ -366,6 +366,7 @@ let usersWithAddress = [
 // 2й - оставляет старше 29 лет включительно
 // 3й - оставляет тех у кого город киев
 // Данные выводить в документ
+
 function openObject (object,container) {
     if (typeof object === 'object') {
         for (let key in object) {
@@ -375,13 +376,19 @@ function openObject (object,container) {
         }
     }
 }
+function objectsToDivsInContainer (array,container) {
+    for (const object of array) {
+        let div = document.createElement('div');
+        openObject(object, div);
+        container.append(div)
+    }
+}
+
 let container = document.createElement('div');
 container.style.border = '1px solid red';
-for (const user of usersWithAddress) {
-    let div = document.createElement('div');
-        openObject(user,div);
-    container.append(div)
-}
+container.style.height = '210px';
+objectsToDivsInContainer(usersWithAddress,container);
+document.body.append(container);
 let pStatus = document.createElement('p');
 pStatus.style.color = 'blue';
 pStatus.innerText = 'select users with status "false"';
@@ -403,8 +410,56 @@ let checkCity = document.createElement('input');
 checkCity.type = 'checkbox';
 checkCity.name = 'checkCity';
 pCity.append(checkCity);
-container.append(pStatus,pAge,pCity);
-document.body.append(container);
+let box = document.createElement('div');
+box.append(pStatus,pAge,pCity);
+document.body.append(box);
+
+
+
+
+// checkStatus.addEventListener('click',  function () {
+//     container.innerText = '';
+//     let users = usersWithAddress.filter((object) => object.status === false);
+//     let usersAge = users.filter((object) => object.age > 28);
+//     let usersCity = users.filter((object) => object.address.city === 'Kyiv');
+//     let usersAgeCity = usersAge.filter((object) => object.address.city === 'Kyiv');
+//     if (checkStatus.checked) {
+//         if (checkAge.checked) {
+//             if (checkCity.checked) {
+//                 objectsToDivsInContainer(usersAgeCity, container);
+//             } else {
+//                 objectsToDivsInContainer(usersAge, container);
+//             }
+//         } else {
+//             if (checkCity.checked) {
+//                 objectsToDivsInContainer(usersCity, container);
+//             } else {
+//                 objectsToDivsInContainer(users, container);
+//             }
+//         }
+//     } else {
+//         objectsToDivsInContainer(usersWithAddress, container);
+//     }
+// });
+//
+// checkCity.onclick = function () {
+//     container.innerText = '';
+//     if (checkCity.checked) {
+//         let users = usersWithAddress.filter((object) => object.address.city === 'Kyiv')
+//         objectsToDivsInContainer(users, container);
+//     }else {
+//         objectsToDivsInContainer(usersWithAddress, container);
+//     }
+// }
+// checkAge.onclick = function () {
+//     container.innerText = '';
+//     if (checkAge.checked) {
+//         let users = usersWithAddress.filter((object) => object.age > 28);
+//         objectsToDivsInContainer(users, container);
+//     }else {
+//         objectsToDivsInContainer(usersWithAddress, container);
+//     }
+// }
 
 
 
@@ -417,4 +472,23 @@ document.body.append(container);
 //     Когда все дети заканчиваются, мы выходим из данного дочернего элемента и переходим к следующему, лежащему с ним на одном уровне
 //
 //
-// // *** При виділені сегменту тексту на сторінці він стає жирний/курсивний/або якось іншим способом змінює свій стан
+//     // // *** При виділені сегменту тексту на сторінці він стає жирний/курсивний/або якось іншим способом змінює свій стан
+// let element = document.createElement('div');
+// element.innerText = 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam architecto aspernatur consequatur deserunt fugit ipsam minima, modi neque repudiandae sed?'
+// document.body.append(element);
+// document.onmouseup = function (ev) {
+//     element = ev.target;
+//     text = element.innerText;
+//     select = document.getSelection().toString().toUpperCase().bold().fontcolor('red');
+//     start = document.getSelection().anchorOffset;
+//     end = document.getSelection().focusOffset;
+//     if (start < end) {
+//         text1 = text.slice(0, start);
+//         text2 = text.slice(end);
+//     }else {
+//         text1 = text.slice(0, end);
+//         text2 = text.slice(start);
+//     }
+//     text = text1+select+text2;
+//     element.innerHTML = text
+// }

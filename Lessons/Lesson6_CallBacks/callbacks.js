@@ -2,20 +2,25 @@
 // let arrNums = [7, 0, -160, 88, 10e1, 21, 117, -95, 0, 1.5, 31]
 // arrNums.sort((a, b) => (a - b));
 // console.log(arrNums);
+
 // // -- при помощи метода sort и колбека отсортировать массив в ниспадающем напралении.
 // // let arrNums1 = [7, 0, -16, 88, 10e1, 21, 115, -95, 0, 1.5, 31]
 // // arrNums1.sort((a, b) => b - a);
 // // console.log(arrNums1)
+
 // // -- при помощи filter получить числа кратные 3
 // // arrNums.fill('0', 0, 3);
 // // console.log(arrNums)
 // let nums3 = arrNums.filter(item => item % 3 === 0);
 // console.log(nums3);
+
 // // -- при помощи filter получить числа кратные 10
 // let nums10 = arrNums.filter(x => x % 10 === 0);
 // console.log(nums10);
+
 // // -- перебрать (проитерировать) массив при помощи foreach()
 // // arrNums.forEach((item,i) => console.log(i,item));
+
 // // -- перебрать массив при помощи map() и получить новый массив в котором все значения будут в 3 раза больше
 // let arrNums3X  = arrNums.map(value => value*3);
 // console.log(arrNums3X)

@@ -58,7 +58,21 @@
         </div>
     </div>
 </div>
+<script>
+    const btnR = document.getElementById('right');
+    const btnl = document.getElementById('left');
+    const frame = document.getElementById('frame');
+    let margin = 0;
+    btnR.onclick = function () {
+        margin === -500 ? margin = 0 : margin -= 100;
+        frame.style.marginLeft = `${margin}%`
+    };
+    btnl.onclick = function () {
+        margin === 0 ? margin = -500 : margin += 100;
+        frame.style.marginLeft = `${margin}%`
+    };
 
+</script>
 <script src="events.js"></script>
 
 </body>

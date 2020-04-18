@@ -453,19 +453,19 @@
 //     При клике на пункт оглавления вы должны отправляться к этому пункту в тексте
 
 
-// - Напишите «Карусель» – ленту изображений, которую можно листать влево-вправо нажатием на стрелочки.
-btnR = document.getElementById('right');
-btnl = document.getElementById('left');
-frame = document.getElementById('frame');
-margin = 0;
-btnR.onclick = function () {
-    margin === -500 ? margin = 0 : margin -= 100;
-    frame.style.marginLeft = `${margin}%`
-};
-btnl.onclick = function () {
-    margin === 0 ? margin = -500 : margin += 100;
-    frame.style.marginLeft = `${margin}%`
-};
+// // - Напишите «Карусель» – ленту изображений, которую можно листать влево-вправо нажатием на стрелочки.
+// const btnR = document.getElementById('right');
+// const btnl = document.getElementById('left');
+// const frame = document.getElementById('frame');
+// let margin = 0;
+// btnR.onclick = function () {
+//     margin === -500 ? margin = 0 : margin -= 100;
+//     frame.style.marginLeft = `${margin}%`
+// };
+// btnl.onclick = function () {
+//     margin === 0 ? margin = -500 : margin += 100;
+//     frame.style.marginLeft = `${margin}%`
+// };
 
 
 // *****(Прям овердоз с рекурсией) Создать функцию которая принимает какой-либо элемент DOM-структуры .
@@ -475,8 +475,111 @@ btnl.onclick = function () {
 // НО если у (какого-либо)дочеренего элемента есть дети, то нажатие "вперед" позволяет нам войти внутрь элемента
 // и  выводит первого ребенка. и тд.
 //     Когда все дети заканчиваются, мы выходим из данного дочернего элемента и переходим к следующему, лежащему с ним на одном уровне
+
+const target = document.getElementById('target');
+console.log('target',target);
+// console.log('parentElement',target.parentElement);
+// console.log('parentElement.childElementCount',target.parentElement.childElementCount);
+// console.log('parentElement.lastElementChild',target.parentElement.lastElementChild);
+// console.log('parentElement.nextElementSibling',target.parentElement.nextElementSibling);
+// console.log('nextElementSibling',target.nextElementSibling);
+console.log('childElementCount',!target.childElementCount);
+
+let foo = function (targ) {
+let next = 'targ';
+    if (targ.childElementCount === 0) {
+        if (targ === targ.parentElement.lastElementChild) {
+            next = foo(targ.parentElement.nextElementSibling);
+            console.log('next1',next);
+        }else {
+            next = targ.nextElementSibling;
+            console.log('next2',next);
+
+        }
+    }else {
+        next = foo(targ.firstElementChild);
+        console.log('next3',next);
+    }
+    return next
+};
+foo(target);
+
+// const container = document.createElement('div');
+// container.style.display = 'flex';
+// const request = document.createElement('div');
+// request.style.width = '80%';
+// request.style.margin = '20px auto';
+// request.style.height = '50px';
+// request.style.padding = '10px';
+// request.style.borderRadius = '10px';
+// request.style.backgroundColor = 'rgba(255,125,175,0.56)';
+// request.style.fontSize = '1.2rem';
+// request.innerHTML = 'Lets PLAY:  <br>  click me';
+// request.style.textAlign = 'center';
+// container.appendChild(request);
+// document.body.appendChild(container);
+// const btn = function (inner) {
+//     const prev = document.createElement('button');
+//     prev.style.width = '15%';
+//     prev.style.height = '50px';
+//     prev.style.border = '2px solid orange';
+//     prev.style.borderRadius = '20px';
+//     prev.style.backgroundColor = 'rgba(255,247,60,0.56)';
+//     prev.innerHTML = inner;
+//     prev.style.fontSize = '1.5rem';
+//     return prev
+// };
 //
+// let wow = function  (array,targ) {
+//     for (let i = 0; i < array.length; i++) {
+//         const object = array[i];
+//         if (object !== object.parentElement.lastChild) {
+//             if (!object.childElementCount) {
+//                 if (object === targ) {
+//                     console.log(object.parentElement.childElementCount)
+//                     const element = array[i+1];
+//                     console.log('/////',element)
+//                     console.log(element.innerText)
+//                     element.innerHTML = 'owu' + element.innerText.bold().fontcolor('red')
+//                 }else {
+//                     wow(array[i],targ)
+//                 }
+//             }
+//         }
 //
+//     }
+// }
+//
+// request.addEventListener('click', function() {
+//     const prev = btn("PREV");
+//     prev.style.position = 'absolute';
+//     prev.style.left = '0';
+//     prev.setAttribute('id','prev');
+//
+//     const next = btn("NEXT");
+//     next.style.position = 'absolute';
+//     next.style.right = '0';
+//     next.setAttribute('id','next');
+//
+//     this.style.width = '60%';
+//     this.style.backgroundColor = 'rgba(149,255,132,0.56)';
+//     this.innerHTML = 'click window anywhere  <br>  to choose an Element <br> and click here onemore! ';
+//     document.body.onclick = function(ev) {
+//         container.append(prev,next);
+//         ev.target.setAttribute('id','xxx')
+//     };
+//     let target = document.getElementById('xxx');
+//     if (target) {
+//         next.addEventListener('click',function (ev) {
+//             request.style.display = 'none';
+//             let elements = document.body.children;
+//             wow(elements,target)
+//
+//         })
+//     }
+// });
+
+
 //     // // *** При виділені сегменту тексту на сторінці він стає жирний/курсивний/або якось іншим способом змінює свій стан
 // let element = document.createElement('div');
 // element.innerText = 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam architecto aspernatur consequatur deserunt fugit ipsam minima, modi neque repudiandae sed?'

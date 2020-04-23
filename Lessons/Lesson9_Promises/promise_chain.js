@@ -11,72 +11,71 @@
 //
 function wakeUp(time, deadLine) {
     time < 12 ? console.log(time + ' am') : console.log(time + ' pm');
-    return new Promise((resolve,reject) => {
+    return new Promise((resolve, reject) => {
         time < deadLine ? timeout = 1000 : timeout = 0;
-        setTimeout(( )=> {
+        setTimeout(() => {
             if (time < deadLine) {
                 console.log('Slept Well!!! Good morning!! Have a nice Day!');
                 console.log(`Awakening can take ${deadLine - time} hours`);
                 time = deadLine;
-                resolve(time)
+                resolve({time, deadLine})
             } else {
                 console.log('Hurry up!!!');
                 console.log(`You late!!! It's already ${time} am!`);
-                resolve(time)
+                resolve({time, deadLine})
             }
-            console.log("wakeUp",time,deadLine)
+            console.log("wakeUp", time, deadLine)
         }, timeout)
     })
 }
 
 function breakfast(time, deadline) {
-    return new Promise((resolve,reject) => {
+    console.log('----',time,deadline);
+    return new Promise((resolve, reject) => {
         time < deadline ? timeout = (deadline - time) * 1000 : timeout = 0;
         setTimeout(() => {
             if ((deadline - time) >= 0.5) {
                 console.log('Bon appetit!');
                 console.log(`You have ${deadline - time} hour for breakfast`);
                 time = deadline;
-                resolve(time)
+                resolve({time: time,deadline1: deadline})
             } else if ((deadline - time) <= 0.5 && (deadline - time) > 0.2) {
                 console.log("You haven't enough time for breakfast");
                 console.log(`You have only ${(Math.floor((deadline - time) * 60))} min !`);
                 time += 0.2;
-                resolve(time)
+                resolve({time: time, deadline1: deadline})
             } else {
                 console.log("You haven't any time for breakfast");
-                console.log(`Eat quickly!!! It's already ${time} am!`)
-                resolve(time)
+                console.log(`Eat quickly!!! It's already ${time} am!`);
+                resolve({time: time, deadline1: deadline})
             }
-            console.log("breakfast",time,deadline)
+            console.log("breakfast", time, deadline)
         }, timeout)
-        })
-
+    })
 }
 
 function goToOrFromWork(time, deadline) {
-    return new Promise((resolve,reject) => {
+    return new Promise((resolve, reject) => {
         let isBrokenLeg = Math.round(Math.random());
-
         timeout = (deadline - time) > 0.5 ? (deadline - time) * 1000 : 500;
         setTimeout(() => {
             if (isBrokenLeg) {
                 console.log('what a terrible day\n' +
                     'I have to go to the hospital');
                 reject('Fuck!, Im broke my leg')
-            }else {
+            } else {
                 if ((deadline - time) > 0.5) {
                     console.log(`You have enough time for walking(${Math.round(deadline - time) * 60} min)`);
                     console.log('Get on the BUS or ride bike');
                     time = deadline;
-                    resolve(time)
+                    resolve({time, deadlineW: deadline})
                 } else {
                     console.log("You haven't enough time (((");
                     console.log('You must take TAXI');
                     time += 0.5;
-                    resolve(time)
+                    resolve({time, deadlineW: deadline})
                 }
-                console.log("goWork",time,deadline)
+                console.log("goWork", time, deadline)
             }
         }, timeout)
     })
@@ -87,41 +86,41 @@ function working(time, timeOn) {
         setTimeout(() => {
             if ((time - timeOn) <= 0.5) {
                 console.log('Have a good Work!');
-                time +=2.5;
-                resolve(time)
+                time += 2.5;
+                resolve({time, timeOn})
             } else {
                 console.log(`You are ${Math.round((time - timeOn) * 10) / 10} hour late`);
                 console.log('Work without breaks');
-                time +=2.5;
-                resolve (time)
+                time += 2.5;
+                resolve({time, timeOn})
             }
-            console.log("working",time,timeOn)
+            console.log("working", time, timeOn)
         }, 2500)
     })
 }
 
 function coffeeBreak(time, timeOn) {
-    return new  Promise((resolve, reject) => {
+    return new Promise((resolve, reject) => {
         timeout = ((timeOn - time) >= 0.25) ? 250 : 0;
         setTimeout(() => {
             if ((timeOn - time) >= 0.25) {
                 console.log("It's COFFEE time!!");
                 console.log(`enjoy your coffee for ${Math.round(timeOn - time) * 60} min`);
                 time += 0.25;
-                resolve(time)
+                resolve({time, timeOn})
             } else {
                 console.log("You lost your time for coffee");
                 console.log('...must work Hardly');
-                resolve(time)
+                resolve({time, timeOn})
             }
-            console.log("coffeeBreak", time,timeOn)
+            console.log("coffeeBreak", time, timeOn)
 
         }, timeout)
     })
 
 }
 
-function lunch(time,timeOn) {
+function lunch(time, timeOn) {
     console.log('Time for Lunch!!!');
     return new Promise((resolve, reject) => {
         let isForgotten = Math.round(Math.random());
@@ -129,37 +128,37 @@ function lunch(time,timeOn) {
             time++;
             if (isForgotten === 0) {
                 console.log('Go warm your Lunch & enjoy its');
-                resolve(time)
+                resolve({time, timeOn})
             } else {
                 console.log('you forgot your Lunch...(((');
                 console.log('let buy pizza');
-                resolve(time)
+                resolve({time, timeOn})
             }
-            console.log("lunch", time,timeOn)
+            console.log("lunch", time, timeOn)
         }, 1000)
     })
 
 }
 
-function studying (time,deadline) {
+function studying(time, deadline) {
     return new Promise((resolve, reject) => {
-        timeout = (deadline > time) ? (deadline - time)*1000 : 0;
+        timeout = (deadline > time) ? (deadline - time) * 1000 : 0;
         setTimeout(() => {
             if ((deadline - time) > 0.5) {
                 console.log('Start studying');
                 time = deadline;
-                resolve(time)
-            }else {
+                resolve({time, deadline})
+            } else {
                 console.log("it's too late for studying");
                 console.log('go to sleep, maybe tomorrow...');
-                resolve(time)
+                resolve({time, deadline})
             }
-            console.log("studying", time,deadline)
-        },timeout)
+            console.log("studying", time, deadline)
+        }, timeout)
     })
 }
 
-function dinner (time,end) {
+function dinner(time, end) {
     console.log("I'm hungry, make dinner!");
     return new Promise((resolve, reject) => {
         let emptyFridge = Math.round(Math.random());
@@ -169,14 +168,14 @@ function dinner (time,end) {
                 console.log('Fuck, fridge is empty...');
                 console.log('Go to the market now');
                 time += 2;
-                resolve(time)
-            }else {
+                resolve({time, end})
+            } else {
                 console.log("O'key, lets dinner, mmmm!!!!");
                 time++;
-                resolve(time)
+                resolve({time, end})
             }
-            console.log("dinner", time,end)
-        },timeout)
+            console.log("dinner", time, end)
+        }, timeout)
     })
 }
 
@@ -184,35 +183,35 @@ function dinner (time,end) {
 
 let awake = +prompt('Enter awake time');
 wakeUp(awake, 8)
-    .then((time) => {
-        return  breakfast(time,8.5)
+    .then((res) => {
+        return breakfast(res.time, res.deadLine + 0.5)
     })
-    .then((time) => {
-        return goToOrFromWork(time,10)
+    .then((res) => {
+        return goToOrFromWork(res.time, res.deadline1 + 1.5)
     })
-    .then((time) => {
-        return working(time,12.5)
+    .then((res) => {
+        return working(res.time, res.deadlineW + 2.5)
     })
-    .then((time) => {
-        return coffeeBreak(time,13)
+    .then((res) => {
+        return coffeeBreak(res.time, res.timeOn + 0.5)
     })
-    .then((time) => {
-        return working(time,15.5)
+    .then((res) => {
+        return working(res.time, res.timeOn + 2.5)
     })
-    .then((time) => {
-        return lunch(time,16.5)
+    .then((res) => {
+        return lunch(res.time, res.timeOn + 1)
     })
-    .then((time) => {
-        return working(time,19)
+    .then((res) => {
+        return working(res.time, res.timeOn + 2.5)
     })
-    .then((time) => {
-        return goToOrFromWork(time,20)
+    .then((res) => {
+        return goToOrFromWork(res.time, res.timeOn + 1)
     })
-    .then((time) => {
-        return dinner(time,21)
+    .then((res) => {
+        return dinner(res.time, res.deadlineW + 1)
     })
-    .then((time) => {
-        return studying(time,23)
+    .then((res) => {
+        return studying(res.time, res.end + 2)
     })
     .then(() => {
         console.log('brush teeth & go sleep,');

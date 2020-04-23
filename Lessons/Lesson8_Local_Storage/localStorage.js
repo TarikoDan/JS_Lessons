@@ -62,14 +62,76 @@ form1.onchange = () => {
 // Требование : хранить историю своих изменений (даже после перезагрузки страницы).
 // Сверху над текстареа должны появится стрелочки, с помощью которых можно перемещаться по истории (не забудьте!чекпоинт истории - нажатеи кнопки сохранить).
 
-let text3 = document.body.forms.form2.innerText;
-
+let form2 = document.forms.form2;
+let text2 = document.getElementById('text2');
 let btnSave = document.createElement('input');
-btnSave.innerText = 'SAVE';
+btnSave.value = 'SAVE';
 btnSave.type = 'button';
-document.body.appendChild(btnSave);
-btnSave.onclick = () => {
-    console.log(text3)
+form2.appendChild(btnSave);
+let btnPrev = document.createElement('input');
+btnPrev.value = '<<PREV';
+btnPrev.type = 'button';
+btnPrev.style.visibility = 'hidden';
+let btnNext = document.createElement('input');
+btnNext.value = 'NEXT>>';
+btnNext.type = 'button';
+btnNext.style.visibility = 'hidden';
+form2.prepend(btnPrev,btnNext);
+
+const localArray = JSON.parse(localStorage.getItem('form2'));
+let steps = localArray.length;
+steps > 1 ? btnPrev.style.visibility = 'visible' : false;
+
+localStorage.getItem('form2') ? text2.value = localArray[localArray.length-1] : false
+let localStartArray = [];
+btnSave.onclick = (ev) => {
+    let text = text2.value;
+    if (localStorage.getItem('form2')) {
+        let localTempArray = JSON.parse(localStorage.getItem('form2'));
+        localTempArray.push(text);
+        localStorage.setItem('form2',JSON.stringify(localTempArray));
+        btnPrev.style.visibility = 'visible'
+    }else {
+        localStartArray.push(text);
+        localStorage.setItem('form2', JSON.stringify(localStartArray))
+    }
+};
+
+if (localStorage.getItem('form2')) {
+    let prevArray = JSON.parse(JSON.stringify(localArray));
+    let click = 1
+    btnPrev.onclick = () => {
+        // click++
+        btnNext.style.visibility = 'visible';
+        text2.value = prevArray[prevArray.length - 1 - click];
+        click < prevArray.length-1  ? click++ : btnPrev.style.visibility = 'hidden';
+        // console.log(prevArray)
+        return prevArray.length
+    };
+
+    btnNext.onclick = (ev) => {
+        let w = true
+        for (const step in prevArray) {
+        // (prevArray[step] === text2.value) ? text2.value = prevArray[step+1] : false
+            if (prevArray[step] === text2.value && w === true) {
+                if (+step < prevArray.length-1) {
+                    text2.value = prevArray[+step + 1];
+                    w = false
+                }else {
+                    btnNext.style.visibility = 'hidden'
+                }
+            }
+        }
+    }
+
+    // let nextArray = JSON.parse(JSON.stringify(localArray));
+    // btnNext.onclick = () => {
+    //     let steps = nextArray.length;
+    //     console.log('steps', steps);
+    //     text2.value = nextArray[0];
+    //     nextArray.length > 1 ? nextArray.splice(0, 1) : btnNext.style.visibility = 'hidden';
+    //     console.log(nextArray)
+    // }
 }
 
 

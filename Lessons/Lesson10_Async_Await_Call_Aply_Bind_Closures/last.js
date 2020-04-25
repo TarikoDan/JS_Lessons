@@ -78,7 +78,7 @@ function card3Take1 ()  {
 let card3SetLimit = () => {
     return new Promise((resolve, reject) => {
         setTimeout(() => {
-            card3.setTransactionsLimit(2);
+            (card3.setTransactionsLimit(2));
             resolve (card3.getCardOptions())
 
         },2000)
@@ -87,7 +87,7 @@ let card3SetLimit = () => {
 let card3Put = () => {
     return new Promise((resolve, reject) => {
         setTimeout(() => {
-            card3.putCredits(1000);
+            (card3.putCredits(1000));
             resolve (card3.getCardOptions())
 
         },3000)
@@ -96,7 +96,7 @@ let card3Put = () => {
 let card3Take2 = () => {
     return new Promise((resolve, reject) => {
         setTimeout(() => {
-            card3.takeCredits(1000);
+            (card3.takeCredits(1000));
             resolve (card3.getCardOptions())
 
         }, 4000)
@@ -105,10 +105,10 @@ let card3Take2 = () => {
 async function oneDayCard3 () {
     card3.getCardOptions();
     try {
-        await card3Take1();
-        await card3SetLimit();
-        await card3Put();
-        await card3Take2()
+         await card3Take1();
+         await card3SetLimit();
+         await card3Put();
+         await card3Take2()
     }
     catch (err) {
         console.warn(err)

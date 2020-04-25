@@ -65,3 +65,70 @@ card1.getCardOptions();
 card2.getCardOptions();
 console.log('*******************************************');
 
+let card3 = userCard(3);
+
+function card3Take1 ()  {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            card3.takeCredits(1000);
+            resolve (card3.getCardOptions());
+        },1000)
+    })
+};
+let card3SetLimit = () => {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            card3.setTransactionsLimit(2);
+            resolve (card3.getCardOptions())
+
+        },2000)
+    })
+};
+let card3Put = () => {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            card3.putCredits(1000);
+            resolve (card3.getCardOptions())
+
+        },3000)
+    })
+};
+let card3Take2 = () => {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            card3.takeCredits(1000);
+            resolve (card3.getCardOptions())
+
+        }, 4000)
+    })
+};
+async function oneDayCard3 () {
+    card3.getCardOptions();
+    try {
+        await card3Take1();
+        await card3SetLimit();
+        await card3Put();
+        await card3Take2()
+    }
+    catch (err) {
+        console.warn(err)
+    }
+    await card3Take1();
+    await card3SetLimit();
+    await card3Put();
+    await card3Take2();
+    console.log('************************************')
+}
+oneDayCard3();  // ??? Чому блок кетч запускає функції? а не просто відловлює помилки...спрацьовує лічильник.
+
+// card3Take1()
+//     .then(card3SetLimit)
+//     .then(card3Put)
+//     .then(card3Take1)
+//     // .catch(console.error)
+
+
+
+
+
+

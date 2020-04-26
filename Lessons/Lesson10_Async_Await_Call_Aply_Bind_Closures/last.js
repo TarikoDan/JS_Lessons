@@ -15,36 +15,39 @@ let userCard = function (userName,numCard) {
     let getCardOptions = function () {
         let cardInfo =  {key,balance,transactionLimit,transactionsCount,historyLogs};
         console.log(`User- ${userName}: Card${key}`,cardInfo);
+        console.log('****************************************');
         return cardInfo
     };
     let putCredits = function (credit) {
-        balance += credit;
-        transactionsCount++;
-        let oparation = new Operation('putCredits',credit,new Date().toLocaleString());
-        historyLogs.push(oparation)
-
+        if (transactionsCount < transactionLimit) {
+            balance += credit;
+            transactionsCount++;
+            let operation = new Operation('putCredits',credit,new Date().toLocaleString());
+            historyLogs.push(operation)
+        }else {console.warn('Transactions limit has been exhausted, \n' +
+            'try to enlarge the limit...')}
     };
     let takeCredits = function (credit) {
-        if (balance > credit) {
+        if (balance >= credit) {
             if (transactionsCount < transactionLimit) {
-                balance -= credit;
+                balance = Math.round(balance - credit);
                 transactionsCount++;
-                let oparation = new Operation('takeCredits',credit,new Date().toLocaleString());
-                historyLogs.push(oparation)
+                let operation = new Operation('takeCredits',credit,new Date().toLocaleString());
+                historyLogs.push(operation)
             }else {console.warn('Transactions limit has been exhausted, \n' +
                 'try to enlarge the limit...')}
         }else {console.warn('not enough money, Put Credits...')}
     };
     let setTransactionsLimit = function (limit) {
         transactionLimit = limit;
-        let oparation = new Operation('setTransactionsLimit',limit,new Date().toLocaleString());
-        historyLogs.push(oparation)
+        let operation = new Operation('setTransactionsLimit',limit,new Date().toLocaleString());
+        historyLogs.push(operation)
     };
     let transferCredits = function (credit,cardX) {
-        if (balance > credit*1.05) {
+        if (balance > credit*1.005) {
             if (transactionsCount < transactionLimit) {
                 cardX.putCredits(credit);
-                this.takeCredits(credit*1.05);
+                this.takeCredits(credit*1.005);
             }else {console.warn('Transactions limit has been exhausted, \n' +
                 'try to enlarge the limit...')}
         }else {console.warn('not enough money, Put Credits...')}
@@ -80,85 +83,171 @@ class UserAccount {
         }
     }
 }
-let tod = new UserAccount('Tod');
 
-console.log(tod);
-tod.addCard(1);
-const todCard1 = tod.getCardByKey(1);
-todCard1.putCredits(1000);
-todCard1.getCardOptions();
-tod.addCard(2);
-const todCard2 = tod.getCardByKey(2);
-todCard2.putCredits(1000);
-todCard2.transferCredits(500,todCard1);
-todCard1.getCardOptions();
-todCard2.getCardOptions();
-todCard2.
-tod.addCard(4);
-tod.addCard(3);
-tod.addCard(3);
-console.log('*******************************************************')
-console.log('*******************************************************')
+//*****************************************************************************
 
-// function card3Take1 ()  {
-//     return new Promise((resolve, reject) => {
-//         setTimeout(() => {
-//             card3.takeCredits(1000);
-//             resolve (card3.getCardOptions());
-//         },1000)
-//     })
+// let user1 = new UserAccount('Taras');
+// console.log(user1);
+// user1.addCard(1);
+// const user1Card1 = user1.getCardByKey(1);
+// user1.addCard(2);
+// const user1Card2 = user1.getCardByKey(2);
+// user1Card1.getCardOptions();
+// console.log('*****************************************************')
+//
+//
+// function user1Card1put1() {
+//     setTimeout(() => {
+//         console.log('=>>card1: putting 500');
+//         user1Card1.putCredits(500);
+//         user1Card1.getCardOptions();
+//     },1000)
+// };
+// function user1Card1take1() {
+//     setTimeout(() => {
+//         console.log('<<=card1: taking 1500');
+//         user1Card1.takeCredits(1500);
+//         user1Card1.getCardOptions();
+//
+//     },2000)
+// };
+// function user1Card1put2() {
+//     setTimeout(() => {
+//         console.log('=>>card1: putting 1000');
+//         user1Card1.putCredits(1000);
+//         user1Card1.getCardOptions();
+//     },3000)
+// };
+// function user1Card2take1() {
+//     setTimeout(() => {
+//         console.log('<<=card2: taking 1500');
+//         user1Card2.takeCredits(1500);
+//         user1Card2.getCardOptions()
+//     },4000)
+// };
+// function user1Card1transfer1() {
+//     setTimeout(() => {
+//         console.log('card1 =>> card2: transferring 1400');
+//         user1Card1.transferCredits(1400,user1Card2);
+//         user1Card1.getCardOptions();
+//         user1Card2.getCardOptions()
+//     }, 5000)
 // }
-// let card3SetLimit = () => {
-//     return new Promise((resolve, reject) => {
-//         setTimeout(() => {
-//             (card3.setTransactionsLimit(2));
-//             resolve (card3.getCardOptions())
-//
-//         },2000)
-//     })
+// function user1Card2take2() {
+//     setTimeout(() => {
+//         console.log('<<=card2: taking 1000');
+//         user1Card2.takeCredits(1500);
+//         user1Card2.getCardOptions()
+//     },6000)
 // };
-// let card3Put = () => {
-//     return new Promise((resolve, reject) => {
-//         setTimeout(() => {
-//             (card3.putCredits(1000));
-//             resolve (card3.getCardOptions())
 //
-//         },3000)
-//     })
-// };
-// let card3Take2 = () => {
-//     return new Promise((resolve, reject) => {
-//         setTimeout(() => {
-//             (card3.takeCredits(1000));
-//             resolve (card3.getCardOptions())
-//
-//         }, 4000)
-//     })
-// };
-// async function oneDayCard3 () {
-//     card3.getCardOptions();
+// user1Card1put1();
+// user1Card1take1();
+// user1Card1put2();
+// user1Card2take1();
+// user1Card1transfer1();
+// user1Card2take2();
+
+//*****************************************************************************
+
+let test = new UserAccount('Test');
+test.addCard(1);
+const card1 = test.getCardByKey(1);
+test.addCard(2);
+const card2 = test.getCardByKey(2);
+card1.getCardOptions();
+console.log('*****************************************************')
+
+
+function card1Take1 () {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            console.log('<<=card1: taking 1000');
+            card1.takeCredits(1000);
+            resolve(card1.getCardOptions());
+        }, 1000)
+    })
+};
+let card1SetLimit = () => {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            console.log('<<--card1-->>: setting Limits');
+            (card1.setTransactionsLimit(2));
+            resolve (card1.getCardOptions())
+
+        },2000)
+    })
+};
+let card1Put = () => {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            console.log('=>>card1: putting 1000');
+            (card1.putCredits(1500));
+            resolve (card1.getCardOptions())
+
+        },3000)
+    })
+};
+let card1Take2 = () => {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            console.log('<<=card1: taking 1000');
+            (card1.takeCredits(1000));
+            resolve (card1.getCardOptions())
+
+        }, 4000)
+    })
+};
+function card2Take1 () {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            console.log('<<=card2: taking 500');
+            card2.takeCredits(500);
+            resolve(card2.getCardOptions());
+        }, 5000)
+    })
+};
+function card1transfer() {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            console.log('card1 =>> card2: transferring 400');
+            card1.transferCredits(400,card2);
+            card1.getCardOptions();
+            card2.getCardOptions()
+        }, 6000)
+    })
+}
+
+
+// async function oneDayCard1 () {
+//     card1.getCardOptions();
 //     try {
-//          await card3Take1();
-//          await card3SetLimit();
-//          await card3Put();
-//          await card3Take2()
+//         await card1Take1();
+//         await card1SetLimit();
+//         await card1Put();
+//         await card1Take2();
+//         await card2Take1();
+//         await card1transfer();
+//
 //     }
 //     catch (err) {
 //         console.warn(err)
 //     }
-//     await card3Take1();
-//     await card3SetLimit();
-//     await card3Put();
-//     await card3Take2();
-//     console.log('************************************')
+//
+//     console.log('******************end*******************')
 // }
-// oneDayCard3();  // ??? Чому блок кетч запускає функції? а не просто відловлює помилки...спрацьовує лічильник.
-                // ??? Чому некоректна поведінка card3SetLimit - чому він запускається першим?
-// card3Take1()
-//     .then(card3SetLimit)
-//     .then(card3Put)
-//     .then(card3Take1)
-//     // .catch(console.error)
+// oneDayCard1();
+
+//***********************************************************************
+
+card1Take1()
+    .then (card1SetLimit)
+    .then(card1Put)
+    .then(card1Take1)
+    .then (card1Take2)
+    .then (card2Take1)
+    .then (card1transfer)
+    .catch(console.error);
 
 
 

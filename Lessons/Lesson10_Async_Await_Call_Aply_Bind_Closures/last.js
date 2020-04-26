@@ -63,6 +63,9 @@ class UserAccount {
         if (this.cards[num-1]) {
             console.warn('Сard with this number already exists!')
         }else{
+            num <= 3
+                ? console.log(`Card ${num} has been added`)
+                : console.warn(`${this.name} can only have 3 cards`);
             this.cards[num-1] = userCard(this.name,num);
             this.cards.length = 3
         }
@@ -83,18 +86,17 @@ console.log(tod);
 tod.addCard(1);
 const todCard1 = tod.getCardByKey(1);
 todCard1.putCredits(1000);
-console.log('ad1');
 todCard1.getCardOptions();
-console.log(tod);
 tod.addCard(2);
 const todCard2 = tod.getCardByKey(2);
-console.log('ad2');
 todCard2.putCredits(1000);
 todCard2.transferCredits(500,todCard1);
 todCard1.getCardOptions();
 todCard2.getCardOptions();
-tod.addCard(4)
-console.log(tod)
+todCard2.
+tod.addCard(4);
+tod.addCard(3);
+tod.addCard(3);
 console.log('*******************************************************')
 console.log('*******************************************************')
 
